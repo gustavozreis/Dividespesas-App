@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "200417822752",
+    "project_id": "dividespesas-56ce8",
+    "storage_bucket": "dividespesas-56ce8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200417822752:android:b732609357b75d352ed445",
+        "android_client_info": {
+          "package_name": "com.gustavozreis.dividespesas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200417822752-6jbju3ftuv14b9nq1dbvr2ephvpovobh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gustavozreis.dividespesas",
+            "certificate_hash": "58d702782a603ca1bd1d1ccc60f771b09fe10d39"
+          }
+        },
+        {
+          "client_id": "200417822752-0ah9u1ner28s4jrcs3p4f547k8qlnev6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTDincKvJHdpGWB5Of_PjUZLydCRa-7bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200417822752-0ah9u1ner28s4jrcs3p4f547k8qlnev6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
