@@ -15,18 +15,9 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        var btnTeste: Button = binding.button2
-        var textTeste: TextView = binding.tvTest
-
-
-
+        setContentView(R.layout.activity_main)
 
     }
 }
