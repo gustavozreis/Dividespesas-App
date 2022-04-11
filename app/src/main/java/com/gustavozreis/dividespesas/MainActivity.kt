@@ -2,18 +2,15 @@ package com.gustavozreis.dividespesas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import com.gustavozreis.dividespesas.R
-import com.gustavozreis.dividespesas.databinding.ActivityMainBinding
-import com.gustavozreis.dividespesas.domain.models.Spend
-import kotlinx.coroutines.launch
+import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
+import com.gustavozreis.dividespesas.data.repository.SpendRepository
+import com.gustavozreis.dividespesas.features.checkspend.CheckSpendViewModel
+import com.gustavozreis.dividespesas.features.checkspend.CheckSpendViewModelFactory
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
