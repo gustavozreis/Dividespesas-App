@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendServiceImpl
@@ -34,8 +36,7 @@ class CheckSpendFragment : Fragment() {
     private var _binding: CheckSpendFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var testText: TextView? = null
-    private var testBtn: Button? = null
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,28 +53,20 @@ class CheckSpendFragment : Fragment() {
             this,
             CheckSpendViewModelFactory(FirebaseSpendHelper(FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
 
-        testText = binding.testText
-        testBtn = binding.testButton
 
-        lifecycleScope.launch { (viewModel as SpendSharedViewModel).getSpendList() }
+        val spendList: MutableList<Spend> = mutableListOf()
 
         (viewModel as SpendSharedViewModel)
-            .spendListLiveData.observe(this.viewLifecycleOwner) { spendList ->
-            testText?.text = spendList.size.toString()
-        }
+            .spendListLiveData.observe(this.viewLifecycleOwner) { spendListViewModel ->
+                for (spend in spendListViewModel) {
+                    spendList.add(spend)
+                }
+                recyclerView = binding.recyclerviewCheckspendMain
+                val rvAdapter = CheckSpendListAdapter(this.context, spendList)
+                recyclerView?.adapter = rvAdapter
+            }
 
 
-
-        testBtn?.setOnClickListener {
-
-            /*lifecycleScope.launch {
-
-                var lista: List<Spend> = (viewModel as CheckSpendViewModel).getSpendList()
-
-                testText?.text = lista.toString()
-            }*/
-
-        }
 
     }
 
