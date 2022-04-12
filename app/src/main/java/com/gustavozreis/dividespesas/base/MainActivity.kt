@@ -11,8 +11,6 @@ import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.repository.SpendRepository
 import com.gustavozreis.dividespesas.features.addspend.AddSpendFragment
 import com.gustavozreis.dividespesas.features.checkspend.CheckSpendFragment
-import com.gustavozreis.dividespesas.features.checkspend.CheckSpendViewModel
-import com.gustavozreis.dividespesas.features.checkspend.CheckSpendViewModelFactory
 import com.gustavozreis.dividespesas.features.splitspend.SplitSpendFragment
 
 class MainActivity : AppCompatActivity() {
