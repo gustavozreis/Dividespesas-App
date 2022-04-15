@@ -51,7 +51,9 @@ class CheckSpendFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             this,
-            CheckSpendViewModelFactory(FirebaseSpendHelper(FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
+            CheckSpendViewModelFactory(
+                FirebaseSpendHelper(
+                    FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
 
 
         val spendList: MutableList<Spend> = mutableListOf()

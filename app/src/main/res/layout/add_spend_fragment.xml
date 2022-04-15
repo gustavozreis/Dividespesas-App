@@ -1,13 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.addspend.AddSpendFragment">
+    android:gravity="top"
+    android:orientation="vertical"
+    tools:context=".features.checkspend.CheckSpendFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/textview_checkspend_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Adicionar Despesa"
+        android:textSize="20sp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:paddingBottom="32dp"
+        android:background="@drawable/add_spend_main_shape"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Tipo" />
+
+        <Spinner
+            android:id="@+id/spinner_spend_type"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_spend_selector_shape"
+            android:gravity="center"
+            android:padding="8dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textDirection="locale"
+            android:tooltipText="Tipo" />
+
+        <TextView
+            android:id="@+id/textview_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Valor" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_spend_selector_shape"
+            android:gravity="center"
+            android:hint="R$19,99"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textview_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Data" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_spend_selector_shape"
+            android:gravity="center"
+            android:hint="10/10/2022"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textview_descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Descrição" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@drawable/add_spend_description_shape"
+            android:gravity="center"
+            android:hint="Compra do mês no mercado Confiança."
+            android:padding="8dp"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

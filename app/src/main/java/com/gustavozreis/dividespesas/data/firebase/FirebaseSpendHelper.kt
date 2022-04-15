@@ -14,7 +14,7 @@ class FirebaseSpendHelper(
 
     suspend fun updateSpend(spend: Spend) = firebaseSpendService.updateSpend(spend)
 
-    suspend fun addSpend(spend: Spend) = firebaseSpendService.addSpend(spend)
+    suspend fun addSpend(spend: Spend, databasePath: String) = firebaseSpendService.addSpend(spend, databasePath)
 
     suspend fun deleteSpend() = firebaseSpendService.deleteSpend()
 

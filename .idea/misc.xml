@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/drawable/add_spend_description_shape.xml" value="0.1" />
+        <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/drawable/add_spend_list_main_shape.xml" value="0.2675" />
+        <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/drawable/add_spend_main_shape.xml" value="0.171" />
+        <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/drawable/add_spend_selector_shape.xml" value="0.2675" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/drawable/check_spend_list_item_shape.xml" value="0.3095" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/activity_main.xml" value="0.2905027932960894" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/add_despesa_fragment.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/add_spend_fragment.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/check_spend_fragment.xml" value="0.33" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/check_spend_list_item.xml" value="0.5" />
         <entry key="..\:/Users/gzrei/Desktop/PROGRAMACAO/PROJETOS/CustoCasalApp/app/src/main/res/layout/split_spend_fragment.xml" value="0.29270833333333335" />

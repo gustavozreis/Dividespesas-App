@@ -5,6 +5,7 @@ import com.gustavozreis.dividespesas.data.models.Spend
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseSpendServiceImpl : FirebaseSpendService {
@@ -15,11 +16,11 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
 
             val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-            val spendReference = firebaseFirestore.collection("couples-database")
+            val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
                 .document("kllj8b8by5DFGMpAW6SK")
                 .collection("spend01273012730712")
 
-            spendReference.get().addOnSuccessListener { spends ->
+            documentReference.get().addOnSuccessListener { spends ->
                 for (spend in spends) {
                     val spendCreated = Spend(
                         spend.getString("spendDate").toString(),
@@ -34,7 +35,7 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
                 continuation.resumeWith(Result.success(spendList))
             }
 
-            spendReference.get().addOnFailureListener { exception ->
+            documentReference.get().addOnFailureListener { exception ->
                 continuation.resumeWith(Result.failure(exception))
             }
         }
@@ -44,8 +45,29 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSpend(spend: Spend) {
-        TODO("Not yet implemented")
+    override suspend fun addSpend(spend: Spend, databasePath: String) {
+
+        val uniqueIdMock = UUID.randomUUID().toString()
+
+        /*spend = Spend(
+            "11/02/2022",
+            "Compra Fraldas",
+            uniqueIdMock,
+            "Teste Tipo",
+            "Gustavo",
+            20.02
+        )*/
+
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+
+        val uniqueId = UUID.randomUUID().toString()
+
+        val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
+            .document("kllj8b8by5DFGMpAW6SK")
+            .collection("spend01273012730712")
+            .document(uniqueId)
+
+        documentReference.set(spend)
     }
 
     override suspend fun deleteSpend() {

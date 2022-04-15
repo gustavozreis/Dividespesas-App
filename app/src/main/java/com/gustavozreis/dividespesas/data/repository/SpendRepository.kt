@@ -9,7 +9,7 @@ class SpendRepository(private val helper: FirebaseSpendHelper) {
 
     suspend fun updateSpend(spend: Spend) = helper.updateSpend(spend)
 
-    suspend fun addSpend(spend: Spend) = helper.addSpend(spend)
+    suspend fun addSpend(spend: Spend, databasePath: String) = helper.addSpend(spend, databasePath)
 
     suspend fun deleteSpend() = helper.deleteSpend()
 
