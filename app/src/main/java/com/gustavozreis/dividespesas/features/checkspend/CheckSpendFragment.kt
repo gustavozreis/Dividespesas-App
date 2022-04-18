@@ -49,11 +49,7 @@ class CheckSpendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            this,
-            CheckSpendViewModelFactory(
-                FirebaseSpendHelper(
-                    FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
+        setUpViewModel()
 
 
         val spendList: MutableList<Spend> = mutableListOf()
@@ -70,6 +66,14 @@ class CheckSpendFragment : Fragment() {
 
 
 
+    }
+
+    private fun setUpViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            SpendSharedModelFactory(
+                FirebaseSpendHelper(
+                    FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
     }
 
     override fun onResume() {

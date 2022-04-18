@@ -6,12 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gustavozreis.dividespesas.R
+import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
+import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendServiceImpl
 import com.gustavozreis.dividespesas.databinding.AddSpendFragmentBinding
+import com.gustavozreis.dividespesas.features.checkspend.SpendSharedModelFactory
+import com.gustavozreis.dividespesas.features.checkspend.SpendSharedViewModel
+import kotlinx.coroutines.launch
 
 class AddSpendFragment : Fragment() {
 
@@ -19,10 +24,17 @@ class AddSpendFragment : Fragment() {
         fun newInstance() = AddSpendFragment()
     }
 
-    var _binding: AddSpendFragmentBinding? = null
-    val binding get() = _binding!!
+    private lateinit var viewModel: ViewModel
 
-    var spendTypeSelected: String = ""
+    private var _binding: AddSpendFragmentBinding? = null
+    private val binding get() = _binding!!
+
+    var spendTypeSelected: String? = null
+    private var spendValueInput: EditText? = null
+    private var spendDateInput: EditText? = null
+    private var spendDescriptionInput: EditText? = null
+
+    private var buttonAdd: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +47,50 @@ class AddSpendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpViewModel()
+        setUpBinding()
         setUpSpinners()
+        setUpListeners()
+
+    }
+
+    private fun setUpViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            SpendSharedModelFactory(
+                FirebaseSpendHelper(
+                    FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
+    }
+
+    private fun addSpend () {
+        if (spendValueInput!!.text.isEmpty()) {
+            Toast.makeText(this.requireContext(), "Adicione o valor da despesa para salvar.", Toast.LENGTH_LONG).show()
+        } else if (spendDateInput!!.text.isEmpty()) {
+            Toast.makeText(this.requireContext(), "Adicione a data da despesa para salvar.", Toast.LENGTH_LONG).show()
+        } else if (spendDescriptionInput!!.text.isEmpty()) {
+            spendDescriptionInput!!.setText("")
+        } else {
+                lifecycleScope.launch {
+                    (viewModel as SpendSharedViewModel).addNewSpend(
+                        spendDateInput?.text.toString(),
+                        spendValueInput?.text.toString().toDouble(),
+                        spendDateInput?.text.toString(),
+                        spendDescriptionInput?.text.toString()
+                        )
+                }
+        }
+    }
+
+    private fun setUpBinding() {
+        spendValueInput = binding.edittextValueInput
+        spendDateInput = binding.edittextDateInput
+        spendDescriptionInput = binding.edittextDescriptionInput
+        buttonAdd = binding.buttonAdd
+
+    }
+
+    private fun setUpListeners() {
+        buttonAdd?.setOnClickListener { addSpend() }
     }
 
     private fun setUpSpinners() {

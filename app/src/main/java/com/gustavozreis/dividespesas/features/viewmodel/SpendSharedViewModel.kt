@@ -28,10 +28,27 @@ class SpendSharedViewModel(
         _spendListLiveData.value = spendList
     }
 
+    suspend fun addNewSpend(spendType: String,
+        spendValue: Double,
+        spendDate: String,
+        spendDescription: String) {
+
+        val spendObject = Spend(
+            spendDate,
+            spendDescription,
+            "091280391280938",
+            spendType,
+            "Gustavo",
+            spendValue
+        )
+
+        spendRepository.addSpend(spendObject, "kllj8b8by5DFGMpAW6SK")
+    }
+
 }
 
 @Suppress("UNCHECKED_CAST")
-class CheckSpendViewModelFactory (private val helper: FirebaseSpendHelper): ViewModelProvider.Factory {
+class SpendSharedModelFactory (private val helper: FirebaseSpendHelper): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(SpendSharedViewModel::class.java)) {

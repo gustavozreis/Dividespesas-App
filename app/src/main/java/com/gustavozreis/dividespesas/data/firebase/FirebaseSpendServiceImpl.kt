@@ -49,15 +49,6 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
 
         val uniqueIdMock = UUID.randomUUID().toString()
 
-        /*spend = Spend(
-            "11/02/2022",
-            "Compra Fraldas",
-            uniqueIdMock,
-            "Teste Tipo",
-            "Gustavo",
-            20.02
-        )*/
-
         val firebaseFirestore = FirebaseFirestore.getInstance()
 
         val uniqueId = UUID.randomUUID().toString()

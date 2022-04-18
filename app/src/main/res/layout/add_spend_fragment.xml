@@ -25,10 +25,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:paddingBottom="32dp"
         android:background="@drawable/add_spend_main_shape"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,10 +44,10 @@
             android:background="@drawable/add_spend_selector_shape"
             android:gravity="center"
             android:padding="8dp"
-            android:spinnerMode="dropdown"
+            android:spinnerMode="dialog"
             android:textAlignment="center"
             android:textDirection="locale"
-            android:tooltipText="Tipo" />
+            android:tooltipText="Tipo"/>
 
         <TextView
             android:id="@+id/textview_valor"
@@ -59,6 +59,7 @@
             android:text="Valor" />
 
         <EditText
+            android:id="@+id/edittext_value_input"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/add_spend_selector_shape"
@@ -76,6 +77,7 @@
             android:text="Data" />
 
         <EditText
+            android:id="@+id/edittext_date_input"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/add_spend_selector_shape"
@@ -84,7 +86,7 @@
             android:padding="8dp" />
 
         <TextView
-            android:id="@+id/textview_descricao"
+            android:id="@+id/textview_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -93,6 +95,7 @@
             android:text="Descrição" />
 
         <EditText
+            android:id="@+id/edittext_description_input"
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:background="@drawable/add_spend_description_shape"
@@ -100,6 +103,17 @@
             android:hint="Compra do mês no mercado Confiança."
             android:padding="8dp"
             android:textSize="15sp" />
+
+        <android.widget.Button
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="ADICIONAR"
+            android:backgroundTint="@color/green_2"
+            android:textColor="@color/orange_1"/>
 
     </LinearLayout>
 
