@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Strings for the spend type spinner of the AddSpendFragment-->
+    <string-array name="spendtype_array">
+        <item>Mercado</item>
+        <item>Farmácia</item>
+        <item>Aluguel</item>
+        <item>Contas</item>
+        <item>Manutenção</item>
+        <item>Alimentação</item>
+        <item>Lazer</item>
+        <item>Outros</item>
+    </string-array>
+</resources>
