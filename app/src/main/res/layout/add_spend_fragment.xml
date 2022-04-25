@@ -47,7 +47,7 @@
             android:spinnerMode="dialog"
             android:textAlignment="center"
             android:textDirection="locale"
-            android:tooltipText="Tipo"/>
+            android:tooltipText="Tipo" />
 
         <TextView
             android:id="@+id/textview_valor"
@@ -63,8 +63,12 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/add_spend_selector_shape"
+            android:digits="0123456789,-"
             android:gravity="center"
             android:hint="R$19,99"
+            android:inputType="numberDecimal"
+
+            android:maxLength="10"
             android:padding="8dp" />
 
         <TextView
@@ -109,11 +113,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/green_2"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="ADICIONAR"
-            android:backgroundTint="@color/green_2"
-            android:textColor="@color/orange_1"/>
+            android:textColor="@color/orange_1" />
 
     </LinearLayout>
 

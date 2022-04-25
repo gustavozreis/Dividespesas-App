@@ -32,6 +32,7 @@ class CheckSpendListAdapter(private val context: Context?, val spendList: Mutabl
         holder.userNameAndData.text = "${spendList[position].spendUser} | ${spendList[position].spendDate}"
         holder.spendType.text = spendList[position].spendType
         holder.spendValue.text = spendList[position].spendValue.toString()
+        val spendId: String = spendList[position].spendId
     }
 
     override fun getItemCount(): Int = spendList.size

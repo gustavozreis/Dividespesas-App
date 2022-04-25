@@ -2,6 +2,7 @@ package com.gustavozreis.dividespesas.features.addspend
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.InputFilter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,11 @@ import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
 import com.gustavozreis.dividespesas.databinding.AddSpendFragmentBinding
+import com.gustavozreis.dividespesas.features.utils.DecimalDigitsInputFilter
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 
 class AddSpendFragment : Fragment() {
 
@@ -61,32 +64,59 @@ class AddSpendFragment : Fragment() {
                     FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
     }
 
-    private fun addSpend () {
+    private fun addSpend() {
         if (spendValueInput!!.text.isEmpty()) {
-            Toast.makeText(this.requireContext(), "Adicione o valor da despesa para salvar.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.requireContext(),
+                "Adicione o valor da despesa para salvar.",
+                Toast.LENGTH_LONG).show()
         } else if (spendDateInput!!.text.isEmpty()) {
-            Toast.makeText(this.requireContext(), "Adicione a data da despesa para salvar.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.requireContext(),
+                "Adicione a data da despesa para salvar.",
+                Toast.LENGTH_LONG).show()
         } else if (spendDescriptionInput!!.text.isEmpty()) {
             spendDescriptionInput!!.setText("")
         } else {
-                lifecycleScope.launch {
-                    (viewModel as SpendSharedViewModel).addNewSpend(
-                        spendTypeSelected!!,
-                        spendValueInput?.text.toString().toDouble(),
-                        spendDateInput?.text.toString(),
-                        spendDescriptionInput?.text.toString()
-                        )
-                }
+            lifecycleScope.launch {
+                (viewModel as SpendSharedViewModel).addNewSpend(
+                    spendTypeSelected!!,
+                    spendValueInput?.text.toString().toDouble(),
+                    spendDateInput?.text.toString(),
+                    spendDescriptionInput?.text.toString()
+                )
+            }
         }
     }
 
     private fun setUpBinding() {
-        spendValueInput = binding.edittextValueInput
+        setUpSpendValueDecimalFormat()
         spendDateInput = binding.edittextDateInput
         spendDescriptionInput = binding.edittextDescriptionInput
         buttonAdd = binding.buttonAdd
 
     }
+
+    private fun setUpSpendValueDecimalFormat() {
+        spendValueInput = binding.edittextValueInput
+        spendValueInput?.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
+        spendValueInput?.setOnFocusChangeListener { view, b ->
+
+            if (!b) {
+                val decimalFormat = DecimalFormat("0.00")
+                if (spendValueInput!!.text.toString() == "") {
+                    spendValueInput!!.setText("0,00")
+                } else {
+                    val valueInputString = spendValueInput!!.text.toString()
+                    val valueInputStringInDouble = valueInputString.replace(',', '.', true)
+                    val valueInputStringFormated = decimalFormat.format(valueInputStringInDouble.toDouble())
+                    val finalStringWithDot = valueInputStringFormated.toString()
+                    val finalStringWithComma = finalStringWithDot.replace('.', ',', true)
+                    spendValueInput!!.setText(finalStringWithComma)
+                }
+            }
+        }
+
+    }
+
 
     private fun setUpListeners() {
         buttonAdd?.setOnClickListener { addSpend() }
@@ -99,7 +129,7 @@ class AddSpendFragment : Fragment() {
             this.requireContext(),
             R.array.spendtype_array,
             android.R.layout.simple_spinner_item
-        ).also {adapter ->
+        ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spendTypeSpinner.adapter = adapter
         }
