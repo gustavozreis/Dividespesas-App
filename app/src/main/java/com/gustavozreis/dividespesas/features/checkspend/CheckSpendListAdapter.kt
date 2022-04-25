@@ -5,11 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gustavozreis.dividespesas.R
-import com.gustavozreis.dividespesas.data.models.Spend
+import com.gustavozreis.dividespesas.data.spends.models.Spend
 
 class CheckSpendListAdapter(private val context: Context?, val spendList: MutableList<Spend>)
     : RecyclerView.Adapter <CheckSpendListAdapter.SpendListItemViewHolder>() {

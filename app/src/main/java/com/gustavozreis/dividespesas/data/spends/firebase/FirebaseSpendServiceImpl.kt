@@ -1,10 +1,7 @@
-package com.gustavozreis.dividespesas.data.firebase
+package com.gustavozreis.dividespesas.data.spends.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.gustavozreis.dividespesas.data.models.Spend
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.gustavozreis.dividespesas.data.spends.models.Spend
 import java.util.*
 import kotlin.coroutines.suspendCoroutine
 
@@ -45,16 +42,14 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSpend(spend: Spend, databasePath: String) {
-
-        val uniqueIdMock = UUID.randomUUID().toString()
+    override suspend fun addSpend(spend: Spend, userCollectionPath: String, userDocumentPath: String) {
 
         val firebaseFirestore = FirebaseFirestore.getInstance()
 
         val uniqueId = UUID.randomUUID().toString()
 
         val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-            .document("kllj8b8by5DFGMpAW6SK")
+            .document("kllj8b8by5DFGMpAW6SK") // esse id estará gravado no usuário user
             .collection("spend01273012730712")
             .document(uniqueId)
 

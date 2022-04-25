@@ -23,7 +23,7 @@
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         tools:listitem="@layout/check_spend_list_item"
         tools:itemCount="2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

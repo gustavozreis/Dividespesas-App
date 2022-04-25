@@ -2,13 +2,9 @@ package com.gustavozreis.dividespesas.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.firestore.FirebaseFirestore
 import com.gustavozreis.dividespesas.R
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
-import com.gustavozreis.dividespesas.data.repository.SpendRepository
 import com.gustavozreis.dividespesas.features.addspend.AddSpendFragment
 import com.gustavozreis.dividespesas.features.checkspend.CheckSpendFragment
 import com.gustavozreis.dividespesas.features.splitspend.SplitSpendFragment

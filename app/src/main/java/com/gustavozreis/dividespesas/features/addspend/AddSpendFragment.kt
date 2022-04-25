@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gustavozreis.dividespesas.R
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendServiceImpl
+import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
+import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
 import com.gustavozreis.dividespesas.databinding.AddSpendFragmentBinding
-import com.gustavozreis.dividespesas.features.checkspend.SpendSharedModelFactory
-import com.gustavozreis.dividespesas.features.checkspend.SpendSharedViewModel
+import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
+import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
 import kotlinx.coroutines.launch
 
 class AddSpendFragment : Fragment() {
@@ -56,7 +55,7 @@ class AddSpendFragment : Fragment() {
 
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             SpendSharedModelFactory(
                 FirebaseSpendHelper(
                     FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
@@ -72,7 +71,7 @@ class AddSpendFragment : Fragment() {
         } else {
                 lifecycleScope.launch {
                     (viewModel as SpendSharedViewModel).addNewSpend(
-                        spendDateInput?.text.toString(),
+                        spendTypeSelected!!,
                         spendValueInput?.text.toString().toDouble(),
                         spendDateInput?.text.toString(),
                         spendDescriptionInput?.text.toString()

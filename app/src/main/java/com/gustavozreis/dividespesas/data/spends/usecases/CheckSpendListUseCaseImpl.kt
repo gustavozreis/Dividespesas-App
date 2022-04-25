@@ -1,7 +1,7 @@
-package com.gustavozreis.dividespesas.data.usecases
+package com.gustavozreis.dividespesas.data.spends.usecases
 
-import com.gustavozreis.dividespesas.data.repository.SpendRepository
-import com.gustavozreis.dividespesas.data.models.Spend
+import com.gustavozreis.dividespesas.data.spends.repository.SpendRepository
+import com.gustavozreis.dividespesas.data.spends.models.Spend
 
 class CheckSpendListUseCaseImpl(
     private val spendRepository: SpendRepository

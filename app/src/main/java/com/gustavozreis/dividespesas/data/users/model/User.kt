@@ -1,4 +1,4 @@
-package com.gustavozreis.dividespesas.data.models
+package com.gustavozreis.dividespesas.data.users.model
 
 data class User(
     val userMainDatabaseCollectionId: String = "",

@@ -1,4 +1,4 @@
-package com.gustavozreis.dividespesas.data.models
+package com.gustavozreis.dividespesas.data.spends.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

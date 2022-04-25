@@ -1,11 +1,13 @@
-package com.gustavozreis.dividespesas.features.checkspend
+package com.gustavozreis.dividespesas.features.viewmodel
 
 import androidx.lifecycle.*
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
-import com.gustavozreis.dividespesas.data.models.Spend
-import com.gustavozreis.dividespesas.data.repository.SpendRepository
+import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
+import com.gustavozreis.dividespesas.data.spends.models.Spend
+import com.gustavozreis.dividespesas.data.spends.repository.SpendRepository
+import com.gustavozreis.dividespesas.data.users.UserInstanceMock
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class SpendSharedViewModel(
     private val spendRepository: SpendRepository,
@@ -21,6 +23,7 @@ class SpendSharedViewModel(
 
     suspend fun getSpendList() {
         val spendList: MutableList<Spend> = mutableListOf()
+        val emptyList: MutableList<Spend> = mutableListOf()
             val tempList: List<Spend> = spendRepository.getSpendList()
             for (spend in tempList) {
                 spendList.add(spend)
@@ -33,16 +36,23 @@ class SpendSharedViewModel(
         spendDate: String,
         spendDescription: String) {
 
+        val spendID = UUID.randomUUID().toString()
+
         val spendObject = Spend(
             spendDate,
             spendDescription,
-            "091280391280938",
+            spendID,
             spendType,
-            "Gustavo",
+            UserInstanceMock.userList[0].userFirstName,
             spendValue
         )
 
-        spendRepository.addSpend(spendObject, "kllj8b8by5DFGMpAW6SK")
+        viewModelScope.launch {
+            spendRepository.addSpend(spendObject,
+                UserInstanceMock.userList[0].userMainDatabaseCollectionId,
+                UserInstanceMock.userList[0].userMainDatabaseDocumentId)
+            getSpendList() }
+
     }
 
 }

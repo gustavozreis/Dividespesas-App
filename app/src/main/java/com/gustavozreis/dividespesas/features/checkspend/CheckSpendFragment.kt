@@ -1,29 +1,19 @@
 package com.gustavozreis.dividespesas.features.checkspend
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendHelper
-import com.gustavozreis.dividespesas.data.firebase.FirebaseSpendServiceImpl
+import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
+import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
 import com.gustavozreis.dividespesas.databinding.CheckSpendFragmentBinding
-import com.gustavozreis.dividespesas.data.models.Spend
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlin.coroutines.suspendCoroutine
+import com.gustavozreis.dividespesas.data.spends.models.Spend
+import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
+import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
 
 class CheckSpendFragment : Fragment() {
 
@@ -51,15 +41,16 @@ class CheckSpendFragment : Fragment() {
 
         setUpViewModel()
 
+        recyclerView = binding.recyclerviewCheckspendMain
 
-        val spendList: MutableList<Spend> = mutableListOf()
 
         (viewModel as SpendSharedViewModel)
             .spendListLiveData.observe(this.viewLifecycleOwner) { spendListViewModel ->
+                val spendList: MutableList<Spend> = mutableListOf()
                 for (spend in spendListViewModel) {
                     spendList.add(spend)
                 }
-                recyclerView = binding.recyclerviewCheckspendMain
+
                 val rvAdapter = CheckSpendListAdapter(this.context, spendList)
                 recyclerView?.adapter = rvAdapter
             }
@@ -70,7 +61,7 @@ class CheckSpendFragment : Fragment() {
 
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             SpendSharedModelFactory(
                 FirebaseSpendHelper(
                     FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
