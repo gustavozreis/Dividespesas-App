@@ -17,7 +17,6 @@ import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
 import com.gustavozreis.dividespesas.databinding.AddSpendFragmentBinding
-import com.gustavozreis.dividespesas.features.utils.DataPicker
 import com.gustavozreis.dividespesas.features.utils.DecimalDigitsInputFilter
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
@@ -25,6 +24,7 @@ import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import com.gustavozreis.dividespesas.features.utils.DatePicker
 
 class AddSpendFragment : Fragment() {
 
@@ -108,28 +108,8 @@ class AddSpendFragment : Fragment() {
 
         spendDateInput?.setOnClickListener {
 
-            var selectedDate: String = ""
-            val myCalendar = Calendar.getInstance()
-            val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-
-                myCalendar.set(Calendar.YEAR, year)
-                myCalendar.set(Calendar.MONTH, month)
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val selectedDateRaw = "$dayOfMonth/${month + 1}/$year"
-
-                val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.US)
-
-                val selectedDateParsed = dateFormat.parse(selectedDateRaw) as Date
-                val selectedDateFinal = dateFormat.format(selectedDateParsed)
-
-                spendDateInput?.text = selectedDateFinal
-
-            }
-
-            DatePickerDialog(this.requireContext(), datePicker,
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONDAY),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+            val datePicker = DatePicker()
+            datePicker.datePicker(this.requireContext(), spendDateInput!!)
         }
     }
 
