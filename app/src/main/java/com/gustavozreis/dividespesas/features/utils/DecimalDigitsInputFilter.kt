@@ -13,15 +13,18 @@ class DecimalDigitsInputFilter (private val decimalDigits: Int) : InputFilter {
         dstart: Int,
         dend: Int,
     ): CharSequence? {
+
         var dotPos = -1
         val len = dest.length
+
         for (i in 0 until len) {
-            val c = dest[i]
-            if (c == '.' || c == ',') {
+            val char = dest[i]
+            if (char == '.' || char == ',') {
                 dotPos = i
                 break
             }
         }
+
         if (dotPos >= 0) {
 
             // protects against many dots

@@ -91,7 +91,8 @@ class AddSpendFragment : Fragment() {
                 } else {
                     val valueInputString = spendValueInput!!.text.toString()
                     val valueInputStringInDouble = valueInputString.replace(',', '.', true)
-                    val valueInputStringFormated = decimalFormat.format(valueInputStringInDouble.toDouble())
+                    val valueInputStringFormated =
+                        decimalFormat.format(valueInputStringInDouble.toDouble())
                     val finalStringWithDot = valueInputStringFormated.toString()
                     val finalStringWithComma = finalStringWithDot.replace('.', ',', true)
                     spendValueInput!!.setText(finalStringWithComma)
@@ -143,15 +144,49 @@ class AddSpendFragment : Fragment() {
                 Toast.LENGTH_LONG).show()
         } else if (spendDescriptionInput!!.text.isEmpty()) {
             spendDescriptionInput!!.setText("")
-        } else {
+
             lifecycleScope.launch {
+
+                val spendValueWithComma = spendValueInput?.text.toString()
+                val spendValueWithDot = spendValueWithComma.replace(",", ".")
+                val spendValueDouble = spendValueWithDot.toDouble()
+
                 (viewModel as SpendSharedViewModel).addNewSpend(
                     spendTypeSelected!!,
-                    spendValueInput?.text.toString().toDouble(),
+                    spendValueDouble,
                     spendDateInput?.text.toString(),
                     spendDescriptionInput?.text.toString()
                 )
+
+                spendValueInput!!.setText("")
+                spendDescriptionInput!!.setText("")
             }
+
+            Toast.makeText(this.requireContext(),
+                "Despesa adicionada.",
+                Toast.LENGTH_LONG).show()
+
+        } else {
+            lifecycleScope.launch {
+
+                val spendValueWithComma = spendValueInput?.text.toString()
+                val spendValueWithDot = spendValueWithComma.replace(",", ".")
+                val spendValueDouble = spendValueWithDot.toDouble()
+
+                (viewModel as SpendSharedViewModel).addNewSpend(
+                    spendTypeSelected!!,
+                    spendValueDouble,
+                    spendDateInput?.text.toString(),
+                    spendDescriptionInput?.text.toString()
+                )
+
+                spendValueInput!!.setText("")
+                spendDescriptionInput!!.setText("")
+            }
+
+            Toast.makeText(this.requireContext(),
+                "Despesa adicionada.",
+                Toast.LENGTH_LONG).show()
         }
     }
 

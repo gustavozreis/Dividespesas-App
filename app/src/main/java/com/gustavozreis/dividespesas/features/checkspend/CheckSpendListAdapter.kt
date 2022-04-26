@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.models.Spend
+import java.text.DecimalFormat
 
 class CheckSpendListAdapter(private val context: Context?, val spendList: MutableList<Spend>)
     : RecyclerView.Adapter <CheckSpendListAdapter.SpendListItemViewHolder>() {
@@ -31,9 +32,17 @@ class CheckSpendListAdapter(private val context: Context?, val spendList: Mutabl
     override fun onBindViewHolder(holder: SpendListItemViewHolder, position: Int) {
         holder.userNameAndData.text = "${spendList[position].spendUser} | ${spendList[position].spendDate}"
         holder.spendType.text = spendList[position].spendType
-        holder.spendValue.text = spendList[position].spendValue.toString()
+        holder.spendValue.text = formatValueToString(spendList[position].spendValue)
         val spendId: String = spendList[position].spendId
     }
 
     override fun getItemCount(): Int = spendList.size
+
+    private fun formatValueToString(value: Double): String {
+        val valueDouble = DecimalFormat("0.00").format(value)
+        val valueString = valueDouble.toString()
+        val valueStringFinal = "R$ ${valueString.replace(".", ",")}"
+        return valueStringFinal
+    }
+
 }
