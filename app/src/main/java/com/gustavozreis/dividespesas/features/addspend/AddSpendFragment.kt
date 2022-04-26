@@ -64,38 +64,15 @@ class AddSpendFragment : Fragment() {
                     FirebaseSpendServiceImpl())))[SpendSharedViewModel::class.java]
     }
 
-    private fun addSpend() {
-        if (spendValueInput!!.text.isEmpty()) {
-            Toast.makeText(this.requireContext(),
-                "Adicione o valor da despesa para salvar.",
-                Toast.LENGTH_LONG).show()
-        } else if (spendDateInput!!.text.isEmpty()) {
-            Toast.makeText(this.requireContext(),
-                "Adicione a data da despesa para salvar.",
-                Toast.LENGTH_LONG).show()
-        } else if (spendDescriptionInput!!.text.isEmpty()) {
-            spendDescriptionInput!!.setText("")
-        } else {
-            lifecycleScope.launch {
-                (viewModel as SpendSharedViewModel).addNewSpend(
-                    spendTypeSelected!!,
-                    spendValueInput?.text.toString().toDouble(),
-                    spendDateInput?.text.toString(),
-                    spendDescriptionInput?.text.toString()
-                )
-            }
-        }
-    }
-
     private fun setUpBinding() {
-        setUpSpendValueDecimalFormat()
+        setUpSpendValueBindingAndDecimalFormat()
         spendDateInput = binding.edittextDateInput
         spendDescriptionInput = binding.edittextDescriptionInput
         buttonAdd = binding.buttonAdd
 
     }
 
-    private fun setUpSpendValueDecimalFormat() {
+    private fun setUpSpendValueBindingAndDecimalFormat() {
         spendValueInput = binding.edittextValueInput
         spendValueInput?.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
         spendValueInput?.setOnFocusChangeListener { view, b ->
@@ -117,9 +94,31 @@ class AddSpendFragment : Fragment() {
 
     }
 
-
     private fun setUpListeners() {
         buttonAdd?.setOnClickListener { addSpend() }
+    }
+
+    private fun addSpend() {
+        if (spendValueInput!!.text.isEmpty()) {
+            Toast.makeText(this.requireContext(),
+                "Adicione o valor da despesa para salvar.",
+                Toast.LENGTH_LONG).show()
+        } else if (spendDateInput!!.text.isEmpty()) {
+            Toast.makeText(this.requireContext(),
+                "Adicione a data da despesa para salvar.",
+                Toast.LENGTH_LONG).show()
+        } else if (spendDescriptionInput!!.text.isEmpty()) {
+            spendDescriptionInput!!.setText("")
+        } else {
+            lifecycleScope.launch {
+                (viewModel as SpendSharedViewModel).addNewSpend(
+                    spendTypeSelected!!,
+                    spendValueInput?.text.toString().toDouble(),
+                    spendDateInput?.text.toString(),
+                    spendDescriptionInput?.text.toString()
+                )
+            }
+        }
     }
 
     private fun setUpSpinners() {
