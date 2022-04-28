@@ -55,6 +55,13 @@ class SpendSharedViewModel(
 
     }
 
+    suspend fun deleteSpend(spendId: String) {
+        viewModelScope.launch {
+            spendRepository.deleteSpend("path", spendId)
+            getSpendList()
+        }
+    }
+
 }
 
 @Suppress("UNCHECKED_CAST")

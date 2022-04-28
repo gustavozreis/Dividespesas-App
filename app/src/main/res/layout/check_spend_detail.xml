@@ -36,7 +36,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/spend_type"
             android:textColor="@color/green_1"
-            android:textSize="15sp" />
+            android:textSize="@dimen/input_titles" />
 
         <TextView
             android:id="@+id/textview_spend_type"
@@ -61,7 +61,8 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/spend_value"
-            android:textColor="@color/green_1" />
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/input_titles" />
 
         <TextView
             android:id="@+id/textview_spend_value"
@@ -86,7 +87,8 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Data"
-            android:textColor="@color/green_1" />
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/input_titles" />
 
         <TextView
             android:id="@+id/textview_spend_date"
@@ -111,7 +113,8 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Descrição"
-            android:textColor="@color/green_1" />
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/input_titles" />
 
         <TextView
             android:id="@+id/textview_spend_description"

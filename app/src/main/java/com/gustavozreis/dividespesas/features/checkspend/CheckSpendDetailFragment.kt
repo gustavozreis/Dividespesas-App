@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
@@ -15,6 +18,7 @@ import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceIm
 import com.gustavozreis.dividespesas.databinding.CheckSpendDetailBinding
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
+import kotlinx.coroutines.launch
 
 class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
 
@@ -29,6 +33,7 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
     private var spendDescription: TextView? = null
     private var spendId: String? = null
     private var spendUser: String? = null
+    private var btnDelete: Button? = null
 
     val args: CheckSpendDetailFragmentArgs by navArgs()
 
@@ -47,6 +52,7 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
         setUpViewModel()
         setUpBindings()
         setUpArguments()
+        setUpListeners()
     }
 
     private fun setUpViewModel() {
@@ -62,6 +68,16 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
         spendValue = binding.textviewSpendValue
         spendDate = binding.textviewSpendDate
         spendDescription = binding.textviewSpendDescription
+        btnDelete = binding.buttonDelete
+    }
+
+    private fun setUpListeners() {
+        btnDelete?.setOnClickListener {
+            lifecycleScope.launch {
+                (viewModel as SpendSharedViewModel).deleteSpend(spendId!!)
+            }
+            findNavController().navigate(R.id.action_checkSpendDetailFragment_to_homeFragment)
+        }
     }
 
     private fun setUpArguments() {

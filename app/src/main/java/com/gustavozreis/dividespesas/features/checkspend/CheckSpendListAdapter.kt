@@ -2,17 +2,15 @@ package com.gustavozreis.dividespesas.features.checkspend
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.gustavozreis.dividespesas.R
-import com.gustavozreis.dividespesas.base.fragments.HomeFragmentDirections
+import com.gustavozreis.dividespesas.base.home.HomeFragmentDirections
 import com.gustavozreis.dividespesas.data.spends.models.Spend
 import java.text.DecimalFormat
 

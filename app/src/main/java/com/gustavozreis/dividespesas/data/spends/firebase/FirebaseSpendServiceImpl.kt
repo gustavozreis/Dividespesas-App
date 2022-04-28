@@ -2,6 +2,7 @@ package com.gustavozreis.dividespesas.data.spends.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.gustavozreis.dividespesas.data.spends.models.Spend
+import com.gustavozreis.dividespesas.data.users.UserInstanceMock
 import java.util.*
 import kotlin.coroutines.suspendCoroutine
 
@@ -14,8 +15,8 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
             val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
             val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-                .document("kllj8b8by5DFGMpAW6SK")
-                .collection("spend01273012730712")
+                .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
+                .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
 
             documentReference.get().addOnSuccessListener { spends ->
                 for (spend in spends) {
@@ -49,15 +50,21 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
         val uniqueId = UUID.randomUUID().toString()
 
         val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-            .document("kllj8b8by5DFGMpAW6SK") // esse id estará gravado no usuário user
-            .collection("spend01273012730712")
-            .document(uniqueId)
+            .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
+            .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
+            .document(spend.spendId)
 
         documentReference.set(spend)
     }
 
-    override suspend fun deleteSpend() {
-        TODO("Not yet implemented")
+    override suspend fun deleteSpend(userDatabasePath: String, spendId: String) {
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+
+        val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
+            .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
+            .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
+            .document(spendId)
+            .delete()
     }
 
 }

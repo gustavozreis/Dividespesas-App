@@ -14,6 +14,7 @@ class SpendRepository(private val helper: FirebaseSpendHelper) {
                          userDocumentPath: String)
     = helper.addSpend(spend, userCollectionPath, userDocumentPath)
 
-    suspend fun deleteSpend() = helper.deleteSpend()
+    suspend fun deleteSpend(userDatabasePath: String,
+                            spendId: String) = helper.deleteSpend(userDatabasePath, spendId)
 
 }

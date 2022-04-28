@@ -1,10 +1,12 @@
-package com.gustavozreis.dividespesas.base.fragments
+package com.gustavozreis.dividespesas.base.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.base.MainViewPageAdapter
 import com.gustavozreis.dividespesas.features.addspend.AddSpendFragment
@@ -33,6 +35,7 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
 
         viewPager = requireView().findViewById(R.id.main_view_pager)
         viewPager.adapter = viewPageAdapter
+        viewPager.currentItem = 1
 
         tabLayout = requireView().findViewById(R.id.main_tab_layout)
         tabLayout.setupWithViewPager(viewPager)

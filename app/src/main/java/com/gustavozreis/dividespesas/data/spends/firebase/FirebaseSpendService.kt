@@ -10,6 +10,6 @@ interface FirebaseSpendService {
 
     suspend fun addSpend(spend: Spend, userCollectionPath: String, userDocumentPath: String)
 
-    suspend fun deleteSpend()
+    suspend fun deleteSpend(userDatabasePath: String, spendId: String)
 
 }

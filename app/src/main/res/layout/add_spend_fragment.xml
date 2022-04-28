@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Tipo" />
+            android:text="Tipo"
+            android:textSize="@dimen/input_titles" />
 
         <Spinner
             android:id="@+id/spinner_spend_type"
@@ -57,7 +58,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Valor" />
+            android:text="Valor"
+            android:textSize="@dimen/input_titles" />
 
         <EditText
             android:id="@+id/edittext_value_input"
@@ -78,7 +80,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Data" />
+            android:text="Data"
+            android:textSize="@dimen/input_titles" />
 
         <TextView
             android:id="@+id/edittext_date_input"
@@ -97,7 +100,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Descrição" />
+            android:text="Descrição"
+            android:textSize="@dimen/input_titles" />
 
         <EditText
             android:id="@+id/edittext_description_input"

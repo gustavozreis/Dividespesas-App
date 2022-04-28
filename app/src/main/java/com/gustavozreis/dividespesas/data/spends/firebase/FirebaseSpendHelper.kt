@@ -15,7 +15,9 @@ class FirebaseSpendHelper(
                          userDocumentPath: String)
     = firebaseSpendService.addSpend(spend, userCollectionPath, userDocumentPath)
 
-    suspend fun deleteSpend() = firebaseSpendService.deleteSpend()
+    suspend fun deleteSpend(userDatabasePath: String,
+                            spendId: String)
+    = firebaseSpendService.deleteSpend(userDatabasePath, spendId)
 
 
 }
