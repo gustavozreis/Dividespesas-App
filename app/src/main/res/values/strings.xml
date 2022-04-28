@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Dividespesas</string>
+    <string name="spend_type">Tipo</string>
+    <string name="spend_value">Valor</string>
 
 
 </resources>

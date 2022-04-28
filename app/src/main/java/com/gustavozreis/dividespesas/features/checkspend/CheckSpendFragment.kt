@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
@@ -51,7 +52,7 @@ class CheckSpendFragment : Fragment() {
                     spendList.add(spend)
                 }
 
-                val rvAdapter = CheckSpendListAdapter(this.context, spendList)
+                val rvAdapter = CheckSpendListAdapter(this.context, spendList, findNavController())
                 recyclerView?.adapter = rvAdapter
             }
 

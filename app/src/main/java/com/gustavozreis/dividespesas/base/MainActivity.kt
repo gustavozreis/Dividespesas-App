@@ -14,15 +14,17 @@ class MainActivity : AppCompatActivity() {
     private var viewPager: ViewPager? = null
     private var tabLayout: TabLayout? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setUpViewPager()
+       // setUpViewPager()
 
     }
 
-    private fun setUpViewPager() {
+    /*private fun setUpViewPager() {
         val viewPageAdapter = MainViewPageAdapter(supportFragmentManager)
         viewPageAdapter.apply {
             this.add(AddSpendFragment(), "Adicionar")
@@ -35,5 +37,5 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.main_tab_layout)
         tabLayout?.setupWithViewPager(viewPager)
-    }
+    }*/
 }
