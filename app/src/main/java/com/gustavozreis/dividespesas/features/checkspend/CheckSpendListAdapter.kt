@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.gustavozreis.dividespesas.R
+import com.gustavozreis.dividespesas.base.fragments.HomeFragmentDirections
 import com.gustavozreis.dividespesas.data.spends.models.Spend
 import java.text.DecimalFormat
 
@@ -41,11 +42,19 @@ class CheckSpendListAdapter(private val context: Context?,
         holder.spendType.text = spendList[position].spendType
         holder.spendValue.text = formatValueToString(spendList[position].spendValue)
         val spendId: String = spendList[position].spendId
-        holder.spendOnClick.setOnClickListener { showSpendDetails() }
-    }
 
-    private fun showSpendDetails() {
-        navController.navigate(R.id.action_homeFragment_to_checkSpendDetailFragment)
+        // Send the spend data to the details fragmente
+        holder.spendOnClick.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToCheckSpendDetailFragment(
+                spendList[position].spendDate,
+                spendList[position].spendDescription,
+                spendList[position].spendId,
+                spendList[position].spendType,
+                spendList[position].spendUser,
+                formatValueToString(spendList[position].spendValue)
+            )
+            navController.navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = spendList.size

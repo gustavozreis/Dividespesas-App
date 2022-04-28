@@ -17,5 +17,24 @@
     <fragment
         android:id="@+id/checkSpendDetailFragment"
         android:name="com.gustavozreis.dividespesas.features.checkspend.CheckSpendDetailFragment"
-        android:label="CheckSpendDetailFragment" />
+        android:label="CheckSpendDetailFragment" >
+        <argument
+            android:name="spendDate"
+            app:argType="string" />
+        <argument
+            android:name="spendDescription"
+            app:argType="string" />
+        <argument
+            android:name="spendId"
+            app:argType="string" />
+        <argument
+            android:name="spendType"
+            app:argType="string" />
+        <argument
+            android:name="spendUser"
+            app:argType="string" />
+        <argument
+            android:name="spendValue"
+            app:argType="string" />
+    </fragment>
 </navigation>

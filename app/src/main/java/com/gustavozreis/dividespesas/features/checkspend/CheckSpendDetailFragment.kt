@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
@@ -19,13 +20,17 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
 
     private lateinit var viewModel: ViewModel
 
-    var _binding: CheckSpendDetailBinding? = null
-    val binding get() = _binding!!
+    private var _binding: CheckSpendDetailBinding? = null
+    private val binding get() = _binding!!
 
-    var spendType: TextView? = null
-    var spendValue: TextView? = null
-    var spendDate: TextView? = null
-    var spendDescription: TextView? = null
+    private var spendType: TextView? = null
+    private var spendValue: TextView? = null
+    private var spendDate: TextView? = null
+    private var spendDescription: TextView? = null
+    private var spendId: String? = null
+    private var spendUser: String? = null
+
+    val args: CheckSpendDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +46,7 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
 
         setUpViewModel()
         setUpBindings()
+        setUpArguments()
     }
 
     private fun setUpViewModel() {
@@ -56,6 +62,15 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
         spendValue = binding.textviewSpendValue
         spendDate = binding.textviewSpendDate
         spendDescription = binding.textviewSpendDescription
+    }
+
+    private fun setUpArguments() {
+        spendType?.text = args.spendType
+        spendValue?.text = args.spendValue
+        spendDate?.text = args.spendDate
+        spendDescription?.text = args.spendDescription
+        spendUser = args.spendType
+        spendId = args.spendId
     }
 
 }
