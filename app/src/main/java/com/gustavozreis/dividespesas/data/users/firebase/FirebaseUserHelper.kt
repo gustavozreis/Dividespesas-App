@@ -23,7 +23,7 @@ class FirebaseUserHelper(private val firebaseUserService: FirebaseUserService) {
     suspend fun loginUser(email: String, password: String) =
         firebaseUserService.loginUser(email, password)
 
-    suspend fun getUserFromEmail (email: String): User? =
-        firebaseUserService.getUserFromEmail(email)
+    suspend fun getUserFromEmail (): User? =
+        firebaseUserService.getUserFromEmail()
 
 }

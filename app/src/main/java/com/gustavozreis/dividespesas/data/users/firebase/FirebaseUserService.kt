@@ -17,6 +17,6 @@ interface FirebaseUserService {
 
     suspend fun loginUser(email: String, password: String): Boolean
 
-    suspend fun getUserFromEmail (email: String): User?
+    suspend fun getUserFromEmail (): User?
 
 }

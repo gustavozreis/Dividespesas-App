@@ -5,6 +5,8 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.currentRecomposeScope
 import com.google.firebase.auth.FirebaseAuth
+import com.gustavozreis.dividespesas.data.spends.firebase.COUPLES_DATABASE
+import com.gustavozreis.dividespesas.data.spends.models.Spend
 import com.gustavozreis.dividespesas.data.users.UserInstance
 import com.gustavozreis.dividespesas.data.users.model.User
 import com.gustavozreis.dividespesas.data.utils.FirebaseFirestoreInstance
@@ -72,14 +74,14 @@ class FirebaseUserServiceImpl : FirebaseUserService {
         return result
     }
 
-    override suspend fun getUserFromEmail(email: String): User? {
+    override suspend fun getUserFromEmail(): User? {
 
         return suspendCoroutine { continuation ->
 
             val auth = FirebaseAuth.getInstance()
             val userEmail = auth.currentUser?.email
 
-            var currentUser: User? = User(
+            var currentUser: User? = null /*User(
                 "spend01273012730712",
                 "kllj8b8by5DFGMpAW6SK",
                 "1243f432fg",
@@ -88,36 +90,36 @@ class FirebaseUserServiceImpl : FirebaseUserService {
                 "Gustavo",
                 "Reis",
                 "q892ynpybqcx924bc343w",
+                )*/
 
-            )
+            val database = FirebaseFirestoreInstance.instance
 
-            val collectionReference = FirebaseFirestoreInstance.instance.collection(USERS_DATABASE)
+            //continuation.resumeWith(Result.success(currentUser))
 
-            continuation.resumeWith(Result.success(currentUser))
-
-
-           collectionReference.get()
+            database
+                .collection(USERS_DATABASE)
+                .whereEqualTo("userEmail", userEmail)
+                .get()
                 .addOnSuccessListener { documentList ->
-                    for (user in documentList) {
-                        if (user.getString("userEmail") == userEmail) {
-                            currentUser = User(
-                                user.getString("userMainDatabaseCollectionId")!!,
-                                user.getString("userMainDatabaseDocumentId")!!,
-                                user.getString("userSecondaryDatabaseCollectionId")!!,
-                                user.getString("userSecondaryDatabaseDocumentId")!!,
-                                user.getString("userEmail")!!,
-                                user.getString("userFirstName")!!,
-                                user.getString("userLastName")!!,
-                                user.getString("userId")!!,
-                            )
-                        }
-                        continuation.resumeWith(Result.success(currentUser))
+                for (user in documentList) {
+                    if (user.getString("userEmail") == userEmail) {
+                        currentUser = User(
+                            user.getString("userMainDatabaseCollectionId").toString(),
+                            user.getString("userMainDatabaseDocumentId").toString(),
+                            user.getString("userSecondaryDatabaseCollectionId").toString(),
+                            user.getString("userSecondaryDatabaseDocumentId").toString(),
+                            user.getString("userEmail").toString(),
+                            user.getString("userFirstName").toString(),
+                            user.getString("userLastName").toString(),
+                            user.getString("userId").toString()
+                        )
                     }
-
+                    continuation.resumeWith(Result.success(currentUser))
                 }
 
-            collectionReference.get().addOnFailureListener { exception ->
-                continuation.resumeWith(Result.success(currentUser))
+            }.addOnFailureListener { exception ->
+                    Log.w(TAG, "ERROAQUI $exception")
+                    continuation.resumeWith(Result.failure(exception))
 
             }
         }

@@ -1,9 +1,11 @@
 package com.gustavozreis.dividespesas.base.viewmodels
 
 import androidx.lifecycle.*
+import com.gustavozreis.dividespesas.data.users.UserInstance
 import com.gustavozreis.dividespesas.data.users.firebase.FirebaseUserHelper
 import com.gustavozreis.dividespesas.data.users.model.User
 import com.gustavozreis.dividespesas.data.users.repository.UserRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -28,12 +30,10 @@ class BaseViewModel(
         }
     }
 
-    fun getUserFromEmail(email: String): User? {
-        var user: User? = null
+    fun getUserFromEmail() {
         viewModelScope.launch {
-            user = userRepository.getUserFromEmail(email)
+            UserInstance.createUser(userRepository.getUserFromEmail())
         }
-        return user
     }
 
 }

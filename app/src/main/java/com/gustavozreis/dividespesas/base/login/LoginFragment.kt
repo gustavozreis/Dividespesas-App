@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.gustavozreis.dividespesas.R
@@ -18,11 +19,14 @@ import com.gustavozreis.dividespesas.base.viewmodels.BaseViewModel
 import com.gustavozreis.dividespesas.base.viewmodels.BaseViewModelFactory
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
+import com.gustavozreis.dividespesas.data.users.UserInstance
 import com.gustavozreis.dividespesas.data.users.firebase.FirebaseUserHelper
 import com.gustavozreis.dividespesas.data.users.firebase.FirebaseUserServiceImpl
 import com.gustavozreis.dividespesas.databinding.LoginFragmentBinding
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
@@ -81,7 +85,14 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                     passwordInput!!.text.toString())
                     .addOnCompleteListener { auth ->
                         if (auth.isSuccessful) {
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                            lifecycleScope.launch {
+                                (viewModel as BaseViewModel).getUserFromEmail()
+                                while (UserInstance.currentUser == null) {
+                                    delay(1_000)
+                                }
+                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                            }
+
                         }
                     }.addOnFailureListener { e ->
                         Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_LONG).show()

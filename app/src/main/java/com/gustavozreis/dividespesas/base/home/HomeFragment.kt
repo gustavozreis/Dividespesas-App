@@ -25,8 +25,6 @@ import kotlinx.coroutines.delay
 
 class HomeFragment : Fragment(R.layout.home_fragment) {
 
-
-
     private lateinit var viewModel: ViewModel
 
     private lateinit var viewPager: ViewPager
@@ -36,7 +34,7 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViewModel()
-        getCurrentUserSingleton()
+        //getCurrentUserSingleton()
         setUpViewPager()
 
     }
@@ -58,7 +56,7 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
     }
 
     private fun getCurrentUserSingleton () {
-        UserInstance.createUser((viewModel as BaseViewModel).getUserFromEmail("gzreis@gmail.com"))
+        (viewModel as BaseViewModel).getUserFromEmail()
     }
 
     private fun setUpViewModel() {

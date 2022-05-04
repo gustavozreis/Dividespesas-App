@@ -24,7 +24,7 @@ class UserRepository(private val helper: FirebaseUserHelper) {
     suspend fun loginUser(email: String, password: String): Boolean =
         helper.loginUser(email, password)
 
-    suspend fun getUserFromEmail(email: String): User? =
-        helper.getUserFromEmail(email)
+    suspend fun getUserFromEmail(): User? =
+        helper.getUserFromEmail()
 
 }
