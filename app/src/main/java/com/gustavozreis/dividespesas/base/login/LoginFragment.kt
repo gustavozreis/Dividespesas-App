@@ -89,6 +89,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             }
         }
 
+        btnRegister?.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
     }
 
     private fun insertUserDataToSharedPreferences() {

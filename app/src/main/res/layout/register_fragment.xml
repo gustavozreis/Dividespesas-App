@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
-    tools:context=".base.login.LoginFragment">
+    tools:context=".base.login.RegisterFragment">
 
     <LinearLayout
         android:id="@+id/linearlayout_main"
@@ -20,6 +20,44 @@
         android:background="@drawable/add_spend_main_shape"
         android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Primeiro nome"
+            android:textSize="@dimen/input_titles" />
+
+        <EditText
+            android:id="@+id/edittext_firstname_input"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_spend_selector_shape"
+            android:gravity="center"
+            android:hint="João"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Sobrenome"
+            android:textSize="@dimen/input_titles" />
+
+        <EditText
+            android:id="@+id/edittext_lastname_input"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_spend_selector_shape"
+            android:gravity="center"
+            android:hint="Silva"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,26 +99,14 @@
             android:textSize="18sp" />
 
         <android.widget.Button
-            android:id="@+id/button_login"
+            android:id="@+id/button_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/green_2"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="ENTRAR"
-            android:textColor="@color/orange_1"
-            android:textSize="16sp"/>
-
-        <android.widget.Button
-            android:id="@+id/button_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/green_2"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="NOVA CONTA"
+            android:text="CRIAR CONTA"
             android:textColor="@color/orange_1"
             android:textSize="13sp"/>
 

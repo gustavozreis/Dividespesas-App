@@ -1,22 +1,22 @@
 package com.gustavozreis.dividespesas.data.spends.firebase
 
-import com.google.firebase.firestore.FirebaseFirestore
+import com.firebase.ui.auth.data.model.User
 import com.gustavozreis.dividespesas.data.spends.models.Spend
-import com.gustavozreis.dividespesas.data.users.UserInstanceMock
+import com.gustavozreis.dividespesas.data.users.UserInstance
+import com.gustavozreis.dividespesas.data.utils.FirebaseFirestoreInstance
 import java.util.*
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseSpendServiceImpl : FirebaseSpendService {
 
     override suspend fun getSpendList(): List<Spend> {
+
         return suspendCoroutine { continuation ->
             var spendList: MutableList<Spend> = mutableListOf()
 
-            val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-
-            val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-                .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
-                .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
+            val documentReference = FirebaseFirestoreInstance.instance.collection(COUPLES_DATABASE)
+                .document(UserInstance.currentUser!!.userMainDatabaseDocumentId)
+                .collection(UserInstance.currentUser!!.userMainDatabaseCollectionId)
 
             documentReference.get().addOnSuccessListener { spends ->
                 for (spend in spends) {
@@ -43,26 +43,28 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSpend(spend: Spend, userCollectionPath: String, userDocumentPath: String) {
-
-        val firebaseFirestore = FirebaseFirestore.getInstance()
+    override suspend fun addSpend(
+        spend: Spend,
+        userCollectionPath: String,
+        userDocumentPath: String,
+    ) {
 
         val uniqueId = UUID.randomUUID().toString()
 
-        val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-            .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
-            .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
+        val documentReference = FirebaseFirestoreInstance.instance.collection(COUPLES_DATABASE)
+            .document(UserInstance.currentUser!!.userMainDatabaseDocumentId)
+            .collection(UserInstance.currentUser!!.userMainDatabaseCollectionId)
             .document(spend.spendId)
 
         documentReference.set(spend)
     }
 
     override suspend fun deleteSpend(userDatabasePath: String, spendId: String) {
-        val firebaseFirestore = FirebaseFirestore.getInstance()
+        //val firebaseFirestore = FirebaseFirestore.getInstance()
 
-        val documentReference = firebaseFirestore.collection(COUPLES_DATABASE)
-            .document(UserInstanceMock.userList[0].userMainDatabaseDocumentId)
-            .collection(UserInstanceMock.userList[0].userMainDatabaseCollectionId)
+        val documentReference = FirebaseFirestoreInstance.instance.collection(COUPLES_DATABASE)
+            .document(UserInstance.currentUser!!.userMainDatabaseDocumentId)
+            .collection(UserInstance.currentUser!!.userMainDatabaseCollectionId)
             .document(spendId)
             .delete()
     }

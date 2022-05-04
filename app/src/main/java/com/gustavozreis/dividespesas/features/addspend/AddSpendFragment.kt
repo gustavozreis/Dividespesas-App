@@ -125,8 +125,6 @@ class AddSpendFragment : Fragment() {
         } else if (spendDescriptionInput!!.text.isEmpty()) {
             spendDescriptionInput!!.setText("")
 
-            lifecycleScope.launch {
-
                 val spendValueWithComma = spendValueInput?.text.toString()
                 val spendValueWithDot = spendValueWithComma.replace(",", ".")
                 val spendValueDouble = spendValueWithDot.toDouble()
@@ -140,15 +138,12 @@ class AddSpendFragment : Fragment() {
 
                 spendValueInput!!.setText("")
                 spendDescriptionInput!!.setText("")
-            }
 
             Toast.makeText(this.requireContext(),
                 "Despesa adicionada.",
                 Toast.LENGTH_LONG).show()
 
         } else {
-            lifecycleScope.launch {
-
                 val spendValueWithComma = spendValueInput?.text.toString()
                 val spendValueWithDot = spendValueWithComma.replace(",", ".")
                 val spendValueDouble = spendValueWithDot.toDouble()
@@ -162,7 +157,6 @@ class AddSpendFragment : Fragment() {
 
                 spendValueInput!!.setText("")
                 spendDescriptionInput!!.setText("")
-            }
 
             Toast.makeText(this.requireContext(),
                 "Despesa adicionada.",

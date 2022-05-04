@@ -73,9 +73,7 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
 
     private fun setUpListeners() {
         btnDelete?.setOnClickListener {
-            lifecycleScope.launch {
-                (viewModel as SpendSharedViewModel).deleteSpend(spendId!!)
-            }
+            (viewModel as SpendSharedViewModel).deleteSpend(spendId!!)
             findNavController().navigate(R.id.action_checkSpendDetailFragment_to_homeFragment)
         }
     }

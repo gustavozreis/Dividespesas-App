@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.models.Spend
 import com.gustavozreis.dividespesas.data.spends.repository.SpendRepository
-import com.gustavozreis.dividespesas.data.users.UserInstanceMock
+import com.gustavozreis.dividespesas.data.users.UserInstance
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -21,17 +21,21 @@ class SpendSharedViewModel(
 
     val spendListLiveData: LiveData<List<Spend>> get() = _spendListLiveData
 
-    suspend fun getSpendList() {
-        val spendList: MutableList<Spend> = mutableListOf()
-        val emptyList: MutableList<Spend> = mutableListOf()
+    private fun getSpendList() {
+
+        viewModelScope.launch{
+            val spendList: MutableList<Spend> = mutableListOf()
+            val emptyList: MutableList<Spend> = mutableListOf()
             val tempList: List<Spend> = spendRepository.getSpendList()
             for (spend in tempList) {
                 spendList.add(spend)
             }
-        _spendListLiveData.value = spendList
+            _spendListLiveData.value = spendList
+        }
+
     }
 
-    suspend fun addNewSpend(spendType: String,
+    fun addNewSpend(spendType: String,
         spendValue: Double,
         spendDate: String,
         spendDescription: String) {
@@ -43,19 +47,19 @@ class SpendSharedViewModel(
             spendDescription,
             spendID,
             spendType,
-            UserInstanceMock.userList[0].userFirstName,
+            UserInstance.currentUser!!.userFirstName,
             spendValue
         )
 
         viewModelScope.launch {
             spendRepository.addSpend(spendObject,
-                UserInstanceMock.userList[0].userMainDatabaseCollectionId,
-                UserInstanceMock.userList[0].userMainDatabaseDocumentId)
+                UserInstance.currentUser!!.userMainDatabaseCollectionId,
+                UserInstance.currentUser!!.userMainDatabaseDocumentId)
             getSpendList() }
 
     }
 
-    suspend fun deleteSpend(spendId: String) {
+    fun deleteSpend(spendId: String) {
         viewModelScope.launch {
             spendRepository.deleteSpend("path", spendId)
             getSpendList()

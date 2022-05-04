@@ -7,5 +7,6 @@ data class User(
     val userSecondaryDatabaseDocumentId: String = "",
     val userEmail: String = "",
     val userFirstName: String = "",
-    val userLastName: String = ""
+    val userLastName: String = "",
+    val userId: String = ""
 )
