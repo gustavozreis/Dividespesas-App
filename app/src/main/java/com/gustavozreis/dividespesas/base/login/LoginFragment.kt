@@ -44,11 +44,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
     private lateinit var auth: FirebaseAuth
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -79,7 +78,9 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         btnEnter?.setOnClickListener {
             if (emailInput!!.text.isEmpty() || passwordInput!!.text.isEmpty()) {
-                Toast.makeText(requireContext(), "Insira todos os dados para entrar.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),
+                    "Insira todos os dados para entrar.",
+                    Toast.LENGTH_LONG).show()
             } else {
                 auth.signInWithEmailAndPassword(emailInput!!.text.toString(),
                     passwordInput!!.text.toString())

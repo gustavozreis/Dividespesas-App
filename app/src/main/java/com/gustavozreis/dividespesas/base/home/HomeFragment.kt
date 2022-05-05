@@ -34,7 +34,6 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViewModel()
-        //getCurrentUserSingleton()
         setUpViewPager()
 
     }
@@ -53,10 +52,6 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
 
         tabLayout = requireView().findViewById(R.id.main_tab_layout)
         tabLayout.setupWithViewPager(viewPager)
-    }
-
-    private fun getCurrentUserSingleton () {
-        (viewModel as BaseViewModel).getUserFromEmail()
     }
 
     private fun setUpViewModel() {

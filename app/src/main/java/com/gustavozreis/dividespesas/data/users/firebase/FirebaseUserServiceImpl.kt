@@ -32,9 +32,6 @@ class FirebaseUserServiceImpl : FirebaseUserService {
         userLastName: String,
     ) {
 
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(userEmail, userPassword)
-
         val userId = UUID.randomUUID().toString()
 
         val userMainDatabaseCollectionId = UUID.randomUUID().toString()
@@ -81,47 +78,36 @@ class FirebaseUserServiceImpl : FirebaseUserService {
             val auth = FirebaseAuth.getInstance()
             val userEmail = auth.currentUser?.email
 
-            var currentUser: User? = null /*User(
-                "spend01273012730712",
-                "kllj8b8by5DFGMpAW6SK",
-                "1243f432fg",
-                "1241qc4tc2t4",
-                "gzreis@gmail.com",
-                "Gustavo",
-                "Reis",
-                "q892ynpybqcx924bc343w",
-                )*/
+            var currentUser: User? = null
 
             val database = FirebaseFirestoreInstance.instance
-
-            //continuation.resumeWith(Result.success(currentUser))
 
             database
                 .collection(USERS_DATABASE)
                 .whereEqualTo("userEmail", userEmail)
                 .get()
                 .addOnSuccessListener { documentList ->
-                for (user in documentList) {
-                    if (user.getString("userEmail") == userEmail) {
-                        currentUser = User(
-                            user.getString("userMainDatabaseCollectionId").toString(),
-                            user.getString("userMainDatabaseDocumentId").toString(),
-                            user.getString("userSecondaryDatabaseCollectionId").toString(),
-                            user.getString("userSecondaryDatabaseDocumentId").toString(),
-                            user.getString("userEmail").toString(),
-                            user.getString("userFirstName").toString(),
-                            user.getString("userLastName").toString(),
-                            user.getString("userId").toString()
-                        )
+                    for (user in documentList) {
+                        if (user.getString("userEmail") == userEmail) {
+                            currentUser = User(
+                                user.getString("userMainDatabaseCollectionId").toString(),
+                                user.getString("userMainDatabaseDocumentId").toString(),
+                                user.getString("userSecondaryDatabaseCollectionId").toString(),
+                                user.getString("userSecondaryDatabaseDocumentId").toString(),
+                                user.getString("userEmail").toString(),
+                                user.getString("userFirstName").toString(),
+                                user.getString("userLastName").toString(),
+                                user.getString("userId").toString()
+                            )
+                        }
+                        continuation.resumeWith(Result.success(currentUser))
                     }
-                    continuation.resumeWith(Result.success(currentUser))
-                }
 
-            }.addOnFailureListener { exception ->
+                }.addOnFailureListener { exception ->
                     Log.w(TAG, "ERROAQUI $exception")
                     continuation.resumeWith(Result.failure(exception))
 
-            }
+                }
         }
 
 

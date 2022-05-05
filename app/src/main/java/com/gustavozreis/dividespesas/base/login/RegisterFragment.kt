@@ -6,15 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.base.viewmodels.BaseViewModel
 import com.gustavozreis.dividespesas.base.viewmodels.BaseViewModelFactory
+import com.gustavozreis.dividespesas.data.users.UserInstance
 import com.gustavozreis.dividespesas.data.users.firebase.FirebaseUserHelper
 import com.gustavozreis.dividespesas.data.users.firebase.FirebaseUserServiceImpl
 import com.gustavozreis.dividespesas.databinding.RegisterFragmentBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment(R.layout.register_fragment) {
 
@@ -29,10 +36,13 @@ class RegisterFragment : Fragment(R.layout.register_fragment) {
     var passwordInput: EditText? = null
     var btnCreate: Button? = null
 
+    // Firebase instance variables
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = RegisterFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,6 +53,7 @@ class RegisterFragment : Fragment(R.layout.register_fragment) {
 
         setUpViewModel()
         setUpBindings()
+        setUpFirebaseAuth()
         setUpListeners()
 
     }
@@ -68,13 +79,64 @@ class RegisterFragment : Fragment(R.layout.register_fragment) {
 
     private fun setUpListeners() {
         btnCreate?.setOnClickListener {
-            (viewModel as BaseViewModel).createUser(
-                firstNameInput?.text.toString(),
-                lastNameInput?.text.toString(),
-                emailInput?.text.toString(),
-                passwordInput?.text.toString()
-            )
+
+            var isUserCreated: Boolean = false
+
+            auth.createUserWithEmailAndPassword(emailInput?.text.toString(),
+                passwordInput?.text.toString()).addOnSuccessListener {
+                (viewModel as BaseViewModel).createUser(
+                    firstNameInput?.text.toString(),
+                    lastNameInput?.text.toString(),
+                    emailInput?.text.toString(),
+                    passwordInput?.text.toString()
+                )
+
+                auth.signInWithEmailAndPassword(emailInput?.text.toString(),
+                    passwordInput?.text.toString())
+                    .addOnCompleteListener { auth ->
+                        if (auth.isSuccessful) {
+                            lifecycleScope.launch {
+                                (viewModel as BaseViewModel).getUserFromEmail()
+                                while (UserInstance.currentUser == null) {
+                                    delay(1_000)
+                                }
+                                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                            }
+
+                        }
+                    }
+            }
+
+            /*if (isUserCreated == true) {
+
+                (viewModel as BaseViewModel).createUser(
+                    firstNameInput?.text.toString(),
+                    lastNameInput?.text.toString(),
+                    emailInput?.text.toString(),
+                    passwordInput?.text.toString()
+                )
+
+                auth.signInWithEmailAndPassword(emailInput?.text.toString(),
+                    passwordInput?.text.toString())
+                    .addOnCompleteListener { auth ->
+                        if (auth.isSuccessful) {
+                            lifecycleScope.launch {
+                                (viewModel as BaseViewModel).getUserFromEmail()
+                                while (UserInstance.currentUser == null) {
+                                    delay(1_000)
+                                }
+                                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                            }
+
+                        }
+                    }
+            }*/
         }
+    }
+
+
+    private fun setUpFirebaseAuth() {
+        auth = FirebaseAuth.getInstance()
     }
 
 }
