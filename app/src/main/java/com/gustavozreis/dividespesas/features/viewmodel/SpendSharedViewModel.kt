@@ -23,7 +23,7 @@ class SpendSharedViewModel(
 
     private fun getSpendList() {
 
-        viewModelScope.launch{
+        viewModelScope.launch {
             val spendList: MutableList<Spend> = mutableListOf()
             val emptyList: MutableList<Spend> = mutableListOf()
             val tempList: List<Spend> = spendRepository.getSpendList()
@@ -35,10 +35,13 @@ class SpendSharedViewModel(
 
     }
 
-    fun addNewSpend(spendType: String,
+    fun addNewSpend(
+        spendType: String,
         spendValue: Double,
         spendDate: String,
-        spendDescription: String) {
+        spendDescription: String,
+        spendIndex: Int,
+    ) {
 
         val spendID = UUID.randomUUID().toString()
 
@@ -48,14 +51,16 @@ class SpendSharedViewModel(
             spendID,
             spendType,
             UserInstance.currentUser!!.userFirstName,
-            spendValue
+            spendValue,
+            spendIndex
         )
 
         viewModelScope.launch {
             spendRepository.addSpend(spendObject,
                 UserInstance.currentUser!!.userMainDatabaseCollectionId,
                 UserInstance.currentUser!!.userMainDatabaseDocumentId)
-            getSpendList() }
+            getSpendList()
+        }
 
     }
 
@@ -69,7 +74,7 @@ class SpendSharedViewModel(
 }
 
 @Suppress("UNCHECKED_CAST")
-class SpendSharedModelFactory (private val helper: FirebaseSpendHelper): ViewModelProvider.Factory {
+class SpendSharedModelFactory(private val helper: FirebaseSpendHelper) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(SpendSharedViewModel::class.java)) {

@@ -39,6 +39,12 @@
         <action
             android:id="@+id/action_checkSpendDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_checkSpendDetailFragment_to_editSpendFragment"
+            app:destination="@id/editSpendFragment" />
+        <argument
+            android:name="spendIndex"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -60,5 +66,32 @@
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSpendFragment"
+        android:name="com.gustavozreis.dividespesas.features.editspend.EditSpendFragment"
+        android:label="edit_spend_fragment"
+        tools:layout="@layout/edit_spend_fragment" >
+        <argument
+            android:name="spendDate"
+            app:argType="string" />
+        <argument
+            android:name="spendDescription"
+            app:argType="string" />
+        <argument
+            android:name="spendId"
+            app:argType="string" />
+        <argument
+            android:name="spendType"
+            app:argType="string" />
+        <argument
+            android:name="spendUser"
+            app:argType="string" />
+        <argument
+            android:name="spendValue"
+            app:argType="string" />
+        <argument
+            android:name="spendIndex"
+            app:argType="integer" />
     </fragment>
 </navigation>

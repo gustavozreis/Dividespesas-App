@@ -1,6 +1,5 @@
 package com.gustavozreis.dividespesas.features.addspend
 
-import android.app.DatePickerDialog
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import com.gustavozreis.dividespesas.R
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendHelper
 import com.gustavozreis.dividespesas.data.spends.firebase.FirebaseSpendServiceImpl
@@ -20,10 +18,7 @@ import com.gustavozreis.dividespesas.databinding.AddSpendFragmentBinding
 import com.gustavozreis.dividespesas.features.utils.DecimalDigitsInputFilter
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedModelFactory
 import com.gustavozreis.dividespesas.features.viewmodel.SpendSharedViewModel
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import com.gustavozreis.dividespesas.features.utils.DatePicker
 
 class AddSpendFragment : Fragment() {
@@ -41,6 +36,8 @@ class AddSpendFragment : Fragment() {
     private var spendValueInput: EditText? = null
     private var spendDateInput: TextView? = null
     private var spendDescriptionInput: EditText? = null
+
+    private var spendIndexSpinner: Int = 0
 
     private var buttonAdd: Button? = null
 
@@ -133,7 +130,8 @@ class AddSpendFragment : Fragment() {
                     spendTypeSelected!!,
                     spendValueDouble,
                     spendDateInput?.text.toString(),
-                    spendDescriptionInput?.text.toString()
+                    spendDescriptionInput?.text.toString(),
+                    spendIndexSpinner
                 )
 
                 spendValueInput!!.setText("")
@@ -152,7 +150,8 @@ class AddSpendFragment : Fragment() {
                     spendTypeSelected!!,
                     spendValueDouble,
                     spendDateInput?.text.toString(),
-                    spendDescriptionInput?.text.toString()
+                    spendDescriptionInput?.text.toString(),
+                    spendIndexSpinner
                 )
 
                 spendValueInput!!.setText("")
@@ -178,6 +177,7 @@ class AddSpendFragment : Fragment() {
         spendTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spendTypeSelected = spendTypeSpinner.selectedItem.toString()
+                spendIndexSpinner = spendTypeSpinner.selectedItemPosition
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

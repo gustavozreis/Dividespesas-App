@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gustavozreis.dividespesas.R
@@ -33,7 +34,10 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
     private var spendDescription: TextView? = null
     private var spendId: String? = null
     private var spendUser: String? = null
+    private var spendIndex: Int? = null
+
     private var btnDelete: Button? = null
+    private var btnEdit: Button? = null
 
     val args: CheckSpendDetailFragmentArgs by navArgs()
 
@@ -69,12 +73,25 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
         spendDate = binding.textviewSpendDate
         spendDescription = binding.textviewSpendDescription
         btnDelete = binding.buttonDelete
+        btnEdit = binding.buttonEdit
     }
 
     private fun setUpListeners() {
         btnDelete?.setOnClickListener {
             (viewModel as SpendSharedViewModel).deleteSpend(spendId!!)
             findNavController().navigate(R.id.action_checkSpendDetailFragment_to_homeFragment)
+        }
+
+        btnEdit?.setOnClickListener {val action = CheckSpendDetailFragmentDirections.actionCheckSpendDetailFragmentToEditSpendFragment(
+                spendDate?.text.toString(),
+                spendDescription?.text.toString(),
+                spendId as String,
+                spendType?.text.toString(),
+                spendUser as String,
+                spendValue?.text.toString(),
+                spendIndex as Int
+            )
+            findNavController().navigate(action)
         }
     }
 
@@ -85,6 +102,7 @@ class CheckSpendDetailFragment : Fragment(R.layout.check_spend_detail) {
         spendDescription?.text = args.spendDescription
         spendUser = args.spendType
         spendId = args.spendId
+        spendIndex = args.spendIndex
     }
 
 }

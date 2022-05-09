@@ -26,7 +26,8 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
                         spend.getString("spendId").toString(),
                         spend.getString("spendType").toString(),
                         spend.getString("spendUser").toString(),
-                        spend.getDouble("spendValue")!!.toDouble()
+                        spend.getDouble("spendValue")!!.toDouble(),
+                        spend.getDouble("spendIndex")!!.toInt()
                     )
                     spendList.add(spendCreated)
                 }
@@ -60,7 +61,6 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
     }
 
     override suspend fun deleteSpend(userDatabasePath: String, spendId: String) {
-        //val firebaseFirestore = FirebaseFirestore.getInstance()
 
         val documentReference = FirebaseFirestoreInstance.instance.collection(COUPLES_DATABASE)
             .document(UserInstance.currentUser!!.userMainDatabaseDocumentId)

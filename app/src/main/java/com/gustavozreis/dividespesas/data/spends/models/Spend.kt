@@ -10,5 +10,6 @@ data class Spend(
     val spendId: String = "",
     val spendType: String = "",
     val spendUser: String = "",
-    val spendValue: Double = 0.0
+    val spendValue: Double = 0.0,
+    val spendIndex: Int,
 ) : Parcelable

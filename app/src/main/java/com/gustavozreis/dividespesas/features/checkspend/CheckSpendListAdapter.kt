@@ -15,7 +15,7 @@ import com.gustavozreis.dividespesas.data.spends.models.Spend
 import java.text.DecimalFormat
 
 class CheckSpendListAdapter(private val context: Context?,
-                            val spendList: MutableList<Spend>,
+                            private val spendList: MutableList<Spend>,
                             private val navController: NavController)
     : RecyclerView.Adapter <CheckSpendListAdapter.SpendListItemViewHolder>() {
 
@@ -41,7 +41,7 @@ class CheckSpendListAdapter(private val context: Context?,
         holder.spendValue.text = formatValueToString(spendList[position].spendValue)
         val spendId: String = spendList[position].spendId
 
-        // Send the spend data to the details fragmente
+        // Send the spend data to the details fragment
         holder.spendOnClick.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCheckSpendDetailFragment(
                 spendList[position].spendDate,
@@ -49,7 +49,8 @@ class CheckSpendListAdapter(private val context: Context?,
                 spendList[position].spendId,
                 spendList[position].spendType,
                 spendList[position].spendUser,
-                formatValueToString(spendList[position].spendValue)
+                formatValueToString(spendList[position].spendValue),
+                spendList[position].spendIndex
             )
             navController.navigate(action)
         }

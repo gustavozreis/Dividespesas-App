@@ -80,7 +80,7 @@
             android:gravity="center"
             android:text="Data" />
 
-        <TextView
+        <EditText
             android:id="@+id/edittext_date_input"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -110,14 +110,14 @@
             android:textSize="15sp" />
 
         <android.widget.Button
-            android:id="@+id/button_add"
+            android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/green_2"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="ADICIONAR"
+            android:text="SALVAR"
             android:textColor="@color/orange_1" />
 
     </LinearLayout>
