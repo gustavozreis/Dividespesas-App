@@ -3,12 +3,13 @@
     <!--Strings for the spend type spinner of the AddSpendFragment-->
     <string-array name="spendtype_array">
         <item>Mercado</item>
-        <item>Farmácia</item>
-        <item>Aluguel</item>
-        <item>Contas</item>
-        <item>Manutenção</item>
-        <item>Alimentação</item>
+        <item>Compras</item>
         <item>Lazer</item>
+        <item>Contas</item>
+        <item>Aluguel</item>
+        <item>Manutenção</item>
+        <item>Carro</item>
+        <item>Pets</item>
         <item>Outros</item>
     </string-array>
 </resources>

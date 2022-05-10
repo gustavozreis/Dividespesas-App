@@ -61,7 +61,7 @@ class CheckSpendListAdapter(private val context: Context?,
     private fun formatValueToString(value: Double): String {
         val valueDouble = DecimalFormat("0.00").format(value)
         val valueString = valueDouble.toString()
-        val valueStringFinal = "R$ ${valueString.replace(".", ",")}"
+        val valueStringFinal = "${valueString.replace(".", ",")}"
         return valueStringFinal
     }
 

@@ -71,6 +71,16 @@ class SpendSharedViewModel(
         }
     }
 
+    fun updateSpend(
+        spendId: String,
+        spend: Spend
+    ) {
+        viewModelScope.launch {
+            spendRepository.updateSpend(spendId, spend)
+            getSpendList()
+        }
+    }
+
 }
 
 @Suppress("UNCHECKED_CAST")

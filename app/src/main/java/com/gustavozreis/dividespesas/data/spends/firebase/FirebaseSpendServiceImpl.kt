@@ -40,8 +40,13 @@ class FirebaseSpendServiceImpl : FirebaseSpendService {
         }
     }
 
-    override suspend fun updateSpend(spend: Spend) {
-        TODO("Not yet implemented")
+    override suspend fun updateSpend(spendId: String, spend: Spend) {
+        val documentReference = FirebaseFirestoreInstance.instance.collection(COUPLES_DATABASE)
+            .document(UserInstance.currentUser!!.userMainDatabaseDocumentId)
+            .collection(UserInstance.currentUser!!.userMainDatabaseCollectionId)
+            .document(spendId)
+
+        documentReference.set(spend)
     }
 
     override suspend fun addSpend(
