@@ -16,10 +16,15 @@ class SpendSharedViewModel(
     var _spendListLiveData = MutableLiveData<List<Spend>>()
 
     init {
-        viewModelScope.launch { getSpendList() }
+        viewModelScope.launch {
+            getSpendList()
+        }
     }
 
     val spendListLiveData: LiveData<List<Spend>> get() = _spendListLiveData
+
+    var _userAndSpendsData = MutableLiveData<List<String>>()
+    val userAndSpendsData: LiveData<List<String>> get() = _userAndSpendsData
 
     private fun getSpendList() {
 
@@ -42,9 +47,7 @@ class SpendSharedViewModel(
         spendDescription: String,
         spendIndex: Int,
     ) {
-
         val spendID = UUID.randomUUID().toString()
-
         val spendObject = Spend(
             spendDate,
             spendDescription,
@@ -54,14 +57,12 @@ class SpendSharedViewModel(
             spendValue,
             spendIndex
         )
-
         viewModelScope.launch {
             spendRepository.addSpend(spendObject,
                 UserInstance.currentUser!!.userMainDatabaseCollectionId,
                 UserInstance.currentUser!!.userMainDatabaseDocumentId)
             getSpendList()
         }
-
     }
 
     fun deleteSpend(spendId: String) {
@@ -73,12 +74,53 @@ class SpendSharedViewModel(
 
     fun updateSpend(
         spendId: String,
-        spend: Spend
+        spend: Spend,
     ) {
         viewModelScope.launch {
             spendRepository.updateSpend(spendId, spend)
             getSpendList()
         }
+    }
+
+    fun splitSpend() {
+
+        viewModelScope.launch {
+            val spendList: List<Spend> = spendRepository.getSpendList()
+
+            var user01: String
+            var user02: String
+            var user01Spends: MutableList<Double> = mutableListOf()
+            var user02Spends: MutableList<Double> = mutableListOf()
+
+            var userNamesList: MutableSet<String> = mutableSetOf()
+
+            // Get users names
+            for (spend in spendList) {
+                userNamesList.add(spend.spendUser)
+            }
+            user01 = userNamesList.elementAt(0)
+            user02 = userNamesList.elementAt(1)
+
+            for (spend in spendList) {
+                when(spend.spendUser) {
+                    user01 -> user01Spends.add(spend.spendValue)
+                    user02 -> user02Spends.add(spend.spendValue)
+                }
+            }
+
+            val user01SpendTotal = user01Spends.sum().toString()
+            val user02SpendTotal = user02Spends.sum().toString()
+
+            val returnList: MutableList<String> = mutableListOf()
+            returnList.add(user01)
+            returnList.add(user01SpendTotal)
+            returnList.add(user02)
+            returnList.add(user02SpendTotal)
+
+            _userAndSpendsData.value = returnList
+
+        }
+
     }
 
 }

@@ -44,7 +44,6 @@ class CheckSpendFragment : Fragment() {
 
         recyclerView = binding.recyclerviewCheckspendMain
 
-
         (viewModel as SpendSharedViewModel)
             .spendListLiveData.observe(this.viewLifecycleOwner) { spendListViewModel ->
                 val spendList: MutableList<Spend> = mutableListOf()
@@ -55,9 +54,6 @@ class CheckSpendFragment : Fragment() {
                 val rvAdapter = CheckSpendListAdapter(this.context, spendList, findNavController())
                 recyclerView?.adapter = rvAdapter
             }
-
-
-
     }
 
     private fun setUpViewModel() {
