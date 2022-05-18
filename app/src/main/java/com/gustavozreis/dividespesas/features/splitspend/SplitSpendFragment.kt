@@ -27,8 +27,14 @@ class SplitSpendFragment : Fragment() {
     private var _binding: SplitSpendFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var testText: TextView? = null
-    private var testButton: Button? = null
+    private var textUser01Line01: TextView? = null
+    private var textUser01Line02: TextView? = null
+    private var textUser01Line03: TextView? = null
+    private var textUser02Line01: TextView? = null
+    private var textUser02Line02: TextView? = null
+    private var textUser02Line03: TextView? = null
+
+    private var usersAndSpendDataObserver: List<String> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,20 +63,31 @@ class SplitSpendFragment : Fragment() {
     }
 
     private fun setUpBindings() {
-        testText = binding.textviewTest
-        testButton = binding.btnTest
+        textUser01Line01 = binding.textviewUser01Line01
+        textUser01Line02 = binding.textviewUser01Line02
+        textUser01Line03 = binding.textviewUser01Line03
+        textUser02Line01 = binding.textviewUser02Line01
+        textUser02Line02 = binding.textviewUser02Line02
+        textUser02Line03 = binding.textviewUser02Line03
     }
 
     private fun setUpObservers() {
        (viewModel as SpendSharedViewModel)
-           .userAndSpendsData.observe(this.viewLifecycleOwner) { returnList ->
-           val returnTestText: String =
-               "${returnList[0]} gastou ${returnList[1]} \n ${returnList[2]} gastou ${returnList[3]}"
-           testText?.setText(returnTestText)
+           .usersAndSpendsData.observe(this.viewLifecycleOwner) { returnList ->
+               usersAndSpendDataObserver = returnList
+               setUpSplitSpends(usersAndSpendDataObserver)
        }
     }
 
     private fun setUpListeners() {
+    }
+
+    private fun setUpSplitSpends(dataList: List<String>) {
+        textUser01Line01?.text = getString(R.string.user01line01, dataList[0])
+        textUser01Line02?.text = getString(R.string.user01line02, dataList[1])
+
+        textUser02Line01?.text = getString(R.string.user02line01, dataList[2])
+        textUser02Line02?.text = getString(R.string.user02line02, dataList[3])
     }
 
 }

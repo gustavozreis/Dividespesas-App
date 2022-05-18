@@ -23,8 +23,8 @@ class SpendSharedViewModel(
 
     val spendListLiveData: LiveData<List<Spend>> get() = _spendListLiveData
 
-    var _userAndSpendsData = MutableLiveData<List<String>>()
-    val userAndSpendsData: LiveData<List<String>> get() = _userAndSpendsData
+    var _usersAndSpendsData = MutableLiveData<List<String>>()
+    val usersAndSpendsData: LiveData<List<String>> get() = _usersAndSpendsData
 
     private fun getSpendList() {
 
@@ -117,7 +117,7 @@ class SpendSharedViewModel(
             returnList.add(user02)
             returnList.add(user02SpendTotal)
 
-            _userAndSpendsData.value = returnList
+            _usersAndSpendsData.value = returnList
 
         }
 

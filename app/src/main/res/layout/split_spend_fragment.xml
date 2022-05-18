@@ -3,21 +3,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top"
     android:orientation="vertical"
     tools:context=".features.splitspend.SplitSpendFragment">
 
-    <TextView
-        android:id="@+id/textview_test"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearlayout_user01"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/add_spend_main_shape"
         android:gravity="center"
-        android:text="Hello" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textview_user01_line01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/user01line01"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textview_user01_line02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/user01line02"
+            android:textSize="23sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textview_user01_line03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="em despesas."
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_user02"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ATUALIZAR"/>
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/add_spend_main_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textview_user02_line01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/user02line01"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textview_user02_line02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/user02line02"
+            android:textSize="23sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textview_user02_line03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/user02line03"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_splitresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/check_spend_detail_selector"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textview_result_line01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Gustavo deve"
+            android:textSize="20sp"
+            android:textColor="@color/orange_1"/>
+
+        <TextView
+            android:id="@+id/textview_result_line02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="R$ 309,52"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange_1"/>
+
+        <TextView
+            android:id="@+id/textview_result_line03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="para Ellen."
+            android:textSize="20sp"
+            android:textColor="@color/orange_1"/>
+
+    </LinearLayout>
 
 </LinearLayout>
