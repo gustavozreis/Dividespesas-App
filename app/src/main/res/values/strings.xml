@@ -1,16 +1,18 @@
 <resources>
+
     <string name="app_name">Dividespesas</string>
     <string name="spend_type">Tipo</string>
     <string name="spend_value">Valor</string>
 
     <!-- Split Spend String Resources -->
     <string name="user01line01">%1$s teve</string>
-    <string name="user01line02">%1$s</string>
+    <string name="user01line02">R$ %1$s</string>
     <string name="user01line03">em despesas.</string>
-
     <string name="user02line01">%1$s teve</string>
-    <string name="user02line02">%1$s</string>
+    <string name="user02line02">R$ %1$s</string>
     <string name="user02line03">em despesas.</string>
-
+    <string name="resultLine01">%1$s deve</string>
+    <string name="resultLine02">R$ %1$s</string>
+    <string name="resultLine03">para %1$s.</string>
 
 </resources>

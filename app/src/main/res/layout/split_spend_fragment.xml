@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Gustavo deve"
+            android:text="@string/resultLine01"
             android:textSize="20sp"
             android:textColor="@color/orange_1"/>
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="R$ 309,52"
+            android:text="@string/resultLine02"
             android:textSize="23sp"
             android:textStyle="bold"
             android:textColor="@color/orange_1"/>
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="para Ellen."
+            android:text="@string/resultLine03"
             android:textSize="20sp"
             android:textColor="@color/orange_1"/>
 

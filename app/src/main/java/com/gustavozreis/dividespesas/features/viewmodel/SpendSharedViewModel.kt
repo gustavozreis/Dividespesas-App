@@ -84,6 +84,13 @@ class SpendSharedViewModel(
 
     fun splitSpend() {
 
+        // This functions sets the liveData value a list with the following indexes:
+        // [0]-> user01 name
+        // [1]-> user01 total spends sum
+        // [2]-> user02 name
+        // [3]-> user02 total spends sum
+        // [4]-> user01 total 'minus' user02 total
+
         viewModelScope.launch {
             val spendList: List<Spend> = spendRepository.getSpendList()
 
@@ -102,27 +109,26 @@ class SpendSharedViewModel(
             user02 = userNamesList.elementAt(1)
 
             for (spend in spendList) {
-                when(spend.spendUser) {
+                when (spend.spendUser) {
                     user01 -> user01Spends.add(spend.spendValue)
                     user02 -> user02Spends.add(spend.spendValue)
                 }
             }
 
-            val user01SpendTotal = user01Spends.sum().toString()
-            val user02SpendTotal = user02Spends.sum().toString()
+            val user01SpendTotal = user01Spends.sum()
+            val user02SpendTotal = user02Spends.sum()
+            val spendsDiference = user01SpendTotal - user02SpendTotal
 
             val returnList: MutableList<String> = mutableListOf()
             returnList.add(user01)
-            returnList.add(user01SpendTotal)
+            returnList.add(user01SpendTotal.toString())
             returnList.add(user02)
-            returnList.add(user02SpendTotal)
+            returnList.add(user02SpendTotal.toString())
+            returnList.add(spendsDiference.toString())
 
             _usersAndSpendsData.value = returnList
-
         }
-
     }
-
 }
 
 @Suppress("UNCHECKED_CAST")
